@@ -1,0 +1,140 @@
+/* Table: BANK */
+
+CREATE TABLE BANK (
+   CODE                 VARCHAR(5)                     ,
+   NAME                 VARCHAR(50)                    ,
+   HEADQUARTERS         VARCHAR(50)                    ,
+   CONSTRAINT PK_BANK PRIMARY KEY CLUSTERED (CODE)
+);
+
+/* Table: BRANCH */
+
+CREATE TABLE BRANCH (
+   BRANCH_ID            VARCHAR(5)                     ,
+   CODE                 VARCHAR(5)                     ,
+   BRANCH_NAME          VARCHAR(50)                    ,
+   BRANCH_ZIPCODE       VARCHAR(5)                     ,
+   BRANCH_CITY          VARCHAR(20)                    ,
+   BRANCH_STREET        VARCHAR(50)                    ,
+   MGR_STARTDATE        VARCHAR(20)                    ,
+   CONSTRAINT PK_BRANCH PRIMARY KEY CLUSTERED (BRANCH_ID),
+   CONSTRAINT FK_BRANCH_REFERENCE_BANK FOREIGN KEY (CODE)
+      REFERENCES BANK (CODE)
+);
+
+/* Table: EMPLOYEE */
+
+CREATE TABLE EMPLOYEE (
+   EMP_ID               VARCHAR(10)                    ,
+   BRANCH_ID            VARCHAR(5)                     ,
+   MGR_EMP_ID           VARCHAR(10)                    ,
+   POSITION             VARCHAR(15)                    ,
+   GENDER               VARCHAR(6)                     ,
+   SALARY               VARCHAR(20)                    ,
+   BIRTH_DATE           VARCHAR(20)                    ,
+   FNAME                VARCHAR(20)                    ,
+   MIDNAME              VARCHAR(20)                    ,
+   LNAME                VARCHAR(20)                    ,
+   START_DATE           VARCHAR(20)                    ,
+   HOURS                VARCHAR(20)                    ,
+   CONSTRAINT PK_EMPLOYEE PRIMARY KEY CLUSTERED (EMP_ID),
+   CONSTRAINT FK_EMPLOYEE_WORKS_FOR_BRANCH FOREIGN KEY (BRANCH_ID)
+      REFERENCES BRANCH (BRANCH_ID),
+   CONSTRAINT FK_EMPLOYEE_REFERENCE_EMPLOYEE FOREIGN KEY (MGR_EMP_ID)
+      REFERENCES EMPLOYEE (EMP_ID)
+);
+
+/* Table: ACCOUNT */
+
+CREATE TABLE ACCOUNT (
+   ACCOUNT_NUMBER       VARCHAR(10)                    ,
+   EMP_ID               VARCHAR(10)                    ,
+   BALANCE              VARCHAR(20)                    ,
+   ACCOUNT_TYPE         VARCHAR(10)                    ,
+   ACTIVE               VARCHAR(10)                    ,
+   OPEN_DATE            VARCHAR(20)                    ,
+   CLOSE_DATE           VARCHAR(20)                    ,
+   CONSTRAINT PK_ACCOUNT PRIMARY KEY CLUSTERED (ACCOUNT_NUMBER),
+   CONSTRAINT FK_ACCOUNT_REFERENCE_EMPLOYEE FOREIGN KEY (EMP_ID)
+      REFERENCES EMPLOYEE (EMP_ID)
+);
+
+/* Table: LOAN */
+
+CREATE TABLE LOAN (
+   LOAN_NUMBER          VARCHAR(10)                    ,
+   BRANCH_ID            VARCHAR(5),
+   LOAN_TYPE            VARCHAR(20)                    ,
+   AMOUNT               VARCHAR(20)                    ,
+   INTEREST_RATE        VARCHAR(20)                    ,
+   QUANTITY_OFFERED     VARCHAR(20)                    ,
+   CONSTRAINT PK_LOAN PRIMARY KEY CLUSTERED (LOAN_NUMBER),
+   CONSTRAINT FK_LOAN_REFERENCE_BRANCH FOREIGN KEY (BRANCH_ID)
+      REFERENCES BRANCH (BRANCH_ID)
+);
+
+/* Table: CUSTOMER */
+
+CREATE TABLE CUSTOMER (
+   CUSTOMER_SSN         VARCHAR(50)                    ,
+   BRANCH_ID            VARCHAR(5)                     ,
+   BIRTH_DATE           varchar(20)                    ,
+   GENDER               VARCHAR(6)                     ,
+   FNAME                VARCHAR(20)                    ,
+   MIDNAME              VARCHAR(20)                    ,
+   LNAME                VARCHAR(20)                    ,
+   ZIPCODE              VARCHAR(5)                     ,
+   CITY                 VARCHAR(20)                    ,
+   STREET               VARCHAR(50)                    ,
+   PHONENUMBER          VARCHAR(13)                    ,
+   CONSTRAINT PK_CUSTOMER PRIMARY KEY CLUSTERED (CUSTOMER_SSN),
+   CONSTRAINT FK_CUSTOMER_REFERENCE_BRANCH FOREIGN KEY (BRANCH_ID)
+      REFERENCES BRANCH (BRANCH_ID)
+);
+
+/* Table: AVAIL */
+CREATE TABLE AVAIL (
+   LOAN_NUMBER          VARCHAR(10)                    ,
+   CUSTOMER_SSN         VARCHAR(50)                    ,
+   START_DATE           VARCHAR(20)                    ,
+   CONSTRAINT PK_AVAIL PRIMARY KEY CLUSTERED (LOAN_NUMBER, CUSTOMER_SSN),
+   CONSTRAINT FK_AVAIL_REFERENCE_LOAN FOREIGN KEY (LOAN_NUMBER)
+      REFERENCES LOAN (LOAN_NUMBER),
+   CONSTRAINT FK_AVAIL_REFERENCE_CUSTOMER FOREIGN KEY (CUSTOMER_SSN)
+      REFERENCES CUSTOMER (CUSTOMER_SSN)
+);
+
+/* Table: BANK_ADDRESS */
+
+CREATE TABLE BANK_ADDRESS (
+   ZIPCODE              VARCHAR(5)                     ,
+   CITY                 VARCHAR(20)                    ,
+   STREET               VARCHAR(50)                    ,
+   BANK_ADDRESS         VARCHAR(50)                    ,
+   CODE                 VARCHAR(5)                     ,
+   CONSTRAINT PK_BANK_ADDRESS PRIMARY KEY CLUSTERED (BANK_ADDRESS, CODE),
+   CONSTRAINT FK_BANK_ADD_LOCATED_BANK FOREIGN KEY (CODE)
+      REFERENCES BANK (CODE)
+);
+
+/* Table: DEPT_NAME */
+
+CREATE TABLE DEPT_NAME (
+   DNAME                VARCHAR(30)                     ,
+   EMP_ID               VARCHAR(10),
+   CONSTRAINT PK_DEPT_NAME PRIMARY KEY CLUSTERED (DNAME),
+   CONSTRAINT FK_DEPT_NAM_REFERENCE_EMPLOYEE FOREIGN KEY (EMP_ID)
+      REFERENCES EMPLOYEE (EMP_ID)
+);
+
+/* Table: PAYMENT */
+
+CREATE TABLE PAYMENT (
+   PAYMENT_ID           VARCHAR(10)                    ,
+   LOAN_NUMBER          VARCHAR(10)                    ,
+   PAY_DATE             VARCHAR(20)                    ,
+   PAYMENT_AMOUNT       VARCHAR(20)                    ,
+   CONSTRAINT PK_PAYMENT PRIMARY KEY CLUSTERED (PAYMENT_ID, LOAN_NUMBER),
+   CONSTRAINT FK_PAYMENT_REFERENCE_LOAN FOREIGN KEY (LOAN_NUMBER)
+      REFERENCES LOAN (LOAN_NUMBER)
+);

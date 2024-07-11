@@ -1,0 +1,15 @@
+D:\Database\DBproject\DBproject\bin\Debug\DBproject.exe.config
+D:\Database\DBproject\DBproject\bin\Debug\DBproject.exe
+D:\Database\DBproject\DBproject\bin\Debug\DBproject.pdb
+D:\Database\DBproject\DBproject\bin\Debug\System.Data.SqlClient.dll
+D:\Database\DBproject\DBproject\bin\Debug\System.Data.SqlClient.xml
+D:\Database\DBproject\DBproject\obj\Debug\DBproject.csproj.AssemblyReference.cache
+D:\Database\DBproject\DBproject\obj\Debug\DBproject.Form1.resources
+D:\Database\DBproject\DBproject\obj\Debug\DBproject.Properties.Resources.resources
+D:\Database\DBproject\DBproject\obj\Debug\DBproject.csproj.GenerateResource.cache
+D:\Database\DBproject\DBproject\obj\Debug\DBproject.csproj.CoreCompileInputs.cache
+D:\Database\DBproject\DBproject\obj\Debug\DBproject.csproj.Up2Date
+D:\Database\DBproject\DBproject\obj\Debug\DBproject.exe
+D:\Database\DBproject\DBproject\obj\Debug\DBproject.pdb
+D:\Database\DBproject\DBproject\obj\Debug\DBproject.Form2.resources
+D:\Database\DBproject\DBproject\obj\Debug\DBproject.Form3.resources
